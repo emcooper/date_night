@@ -83,7 +83,7 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 1, new_tree.depth_of(80)
     assert_equal 2, new_tree.depth_of(90)
   end
-  def test_depth_of_nil_for_nonexisting_score
+  def test_depth_of_returns_nil_for_nonexisting_score
     new_tree = BinarySearchTree.new
     new_tree.insert(60, "Batman Begins")
     assert_nil new_tree.depth_of(80)

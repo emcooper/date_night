@@ -30,15 +30,13 @@ class BinarySearchTree
       @level += 1
       if score < current_node.score
         if current_node.left.nil?
-          @created = create_child(score, title, current_node, "left")
-          @created.depth
+          create_child(score, title, current_node, "left").depth
         else
           insert(score, title, current_node.left, @level)
         end
       elsif score > current_node.score
         if current_node.right.nil?
-          @created = create_child(score, title, current_node, "right")
-          @created.depth
+          create_child(score, title, current_node, "right").depth
         else
           insert(score, title, current_node.right, @level)
         end
