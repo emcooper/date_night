@@ -106,6 +106,13 @@ class BinarySearchTree
     @sorted
   end
   def load(file)
-
-  end 
+    loaded = 0
+    movies_list = File.open(file, "r")
+    movies_list.each do |line|
+      insert(line.split(", ")[0].to_i, line.split(", ")[1].chomp)
+      loaded += 1
+    end
+    loaded
+  end
 end
+

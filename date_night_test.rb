@@ -61,6 +61,13 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 1, new_tree.insert(80, "Dark Night")
     assert_equal 2, new_tree.insert(90, "Lion King")
   end
+  def test_insert_returns_depth_not_in_order
+    new_tree = BinarySearchTree.new
+    assert_equal 0, new_tree.insert(80, "Dark Night")
+    assert_equal 1, new_tree.insert(60, "Batman Begins")
+    assert_equal 1, new_tree.insert(90, "Lion King")
+    assert_equal 2, new_tree.insert(50, "Italian Job")
+  end
   def test_include_true_for_inserted_movies
     new_tree = BinarySearchTree.new
     new_tree.insert(60, "Batman Begins")
@@ -111,11 +118,15 @@ class BinarySearchTreeTest < Minitest::Test
     new_tree.insert(50, "Italian Job")
     assert_equal [{"Italian Job"=>50}, {"Batman Begins"=>60}, {"Dark Night"=>80}, {"Lion King"=>90}], new_tree.sort
   end
-  def test_load_method_inserts_movies_in_text_file
+  def test_load_method_inserts_movies_from_text_file
     new_tree = BinarySearchTree.new
     new_tree.load('movies.txt')
-    assert_equal "The Saint", new_tree.search(82, @root).title
-    assert_equal "Breath", new_tree.search(30, @root).title
-    assert_equal "Serenity", new_tree.search(72, @root).title
+    assert_equal "The Saint", new_tree.search(82, new_tree.root).title
+    assert_equal "Breathe", new_tree.search(30, new_tree.root).title
+    assert_equal "Serenity", new_tree.search(72, new_tree.root).title
   end
+  def test_load_returns_number_inserted
+    new_tree = BinarySearchTree.new
+    assert_equal 99, new_tree.load('movies.txt')
+  end 
 end
