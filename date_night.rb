@@ -1,5 +1,3 @@
-require 'pry'
-
 class Node
   attr_accessor :score, :title, :depth, :left, :right
   def initialize(score, title, depth = nil, left = nil, right = nil)
@@ -13,6 +11,7 @@ end
 
 class BinarySearchTree
   attr_accessor :root
+  
   def initialize
     @root = nil
     @current_node = nil
