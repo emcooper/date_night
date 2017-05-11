@@ -18,7 +18,6 @@ class BinarySearchTree
     @current_node = nil
     @sorted = []
     @level = 0
-    @created = nil
   end
 
   def insert(score, title, current_node = @root, level = 0)
@@ -53,35 +52,28 @@ class BinarySearchTree
   end
 
   def include?(score)
-    search(score, @root)
+    search(score, @root) != nil
   end
 
   def search(score, current_node)
     @current_node = current_node
     @level += 1
     if score == current_node.score
-      true
+      current_node
     elsif score < current_node.score
-      if current_node.left.nil?
-        false
-      else
+       if current_node.left != nil
         search(score, current_node.left)
       end
     elsif score > current_node.score
-      if current_node.right.nil?
-        false
-      else
+      if current_node.right != nil
         search(score, current_node.right)
       end
     end
   end
 
   def depth_of(score)
-    @level = -1
-    if search(score, @root)
-      @level
-    else
-      nil
+    if search(score, @root) != nil
+      search(score, @root).depth
     end
   end
 
@@ -113,4 +105,7 @@ class BinarySearchTree
     end
     @sorted
   end
+  def load(file)
+
+  end 
 end

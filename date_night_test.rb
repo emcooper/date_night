@@ -23,10 +23,11 @@ class NodeTest < Minitest::Test
 end
 
 class BinarySearchTreeTest < Minitest::Test
-  def test_inserts_first_node_at_root
+  def test_inserts_node_with_title_and_score
     new_tree = BinarySearchTree.new
     new_tree.insert(60, "Batman Begins")
     assert_equal 60, new_tree.root.score
+    assert_equal "Batman Begins", new_tree.root.title
   end
   def test_inserts_lower_node_left
     new_tree = BinarySearchTree.new
@@ -102,12 +103,19 @@ class BinarySearchTreeTest < Minitest::Test
     new_tree.insert(90, "Lion King")
     assert_equal ({"Batman Begins"=>60}), new_tree.min
   end
-  def test_sort_returns_sorted_movies_scores
+  def test_sort_returns_sorted_movies
     new_tree = BinarySearchTree.new
     new_tree.insert(80, "Dark Night")
     new_tree.insert(60, "Batman Begins")
     new_tree.insert(90, "Lion King")
     new_tree.insert(50, "Italian Job")
     assert_equal [{"Italian Job"=>50}, {"Batman Begins"=>60}, {"Dark Night"=>80}, {"Lion King"=>90}], new_tree.sort
+  end
+  def test_load_method_inserts_movies_in_text_file
+    new_tree = BinarySearchTree.new
+    new_tree.load('movies.txt')
+    assert_equal "The Saint", new_tree.search(82, @root).title
+    assert_equal "Breath", new_tree.search(30, @root).title
+    assert_equal "Serenity", new_tree.search(72, @root).title
   end
 end
