@@ -12,34 +12,36 @@ class Node
 end
 
 class BinarySearchTree
-  attr_accessor :root, :level, :current_node
+  attr_accessor :root
   def initialize
     @root = nil
     @current_node = nil
-  end
-  def insert(score, title)
+    @sorted = []
     @level = 0
-    if root.nil?
-      @root = Node.new(score, title, @level)
-    else
-      insert_recursively(score, title, @root)
-    end
-    @level
+    @created = nil
   end
 
-  def insert_recursively(score, title, current_node)
-    @level += 1
-    if score < current_node.score
-      if current_node.left.nil?
-        create_child(score, title, current_node, "left")
-      else
-        insert_recursively(score, title, current_node.left)
-      end
-    elsif score > current_node.score
-      if current_node.right.nil?
-        create_child(score, title, current_node, "right")
-      else
-        insert_recursively(score, title, current_node.right)
+  def insert(score, title, current_node = @root, level = 0)
+    @level = level
+    if @root.nil?
+      @root = Node.new(score, title, @level)
+      @root.depth
+    else
+      @level += 1
+      if score < current_node.score
+        if current_node.left.nil?
+          @created = create_child(score, title, current_node, "left")
+          @created.depth
+        else
+          insert(score, title, current_node.left, @level)
+        end
+      elsif score > current_node.score
+        if current_node.right.nil?
+          @created = create_child(score, title, current_node, "right")
+          @created.depth
+        else
+          insert(score, title, current_node.right, @level)
+        end
       end
     end
   end
@@ -95,13 +97,7 @@ class BinarySearchTree
     {@current_node.title => @current_node.score}
   end
 
-  def sort
-    @sorted = []
-    sort_recursive(@root)
-    @sorted
-  end
-
-  def sort_recursive(current_node)
+  def sort(current_node = @root)
     index = 0
     inserted = false
     while inserted == false
@@ -112,10 +108,11 @@ class BinarySearchTree
       index += 1
     end
     if current_node.left != nil
-      sort_recursive(current_node.left)
+      sort(current_node.left)
     end
     if current_node.right != nil
-      sort_recursive(current_node.right)
+      sort(current_node.right)
     end
+    @sorted
   end
 end
