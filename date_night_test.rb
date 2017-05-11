@@ -129,4 +129,11 @@ class BinarySearchTreeTest < Minitest::Test
     new_tree = BinarySearchTree.new
     assert_equal 99, new_tree.load('movies.txt')
   end 
+  def test_load_ignores_score_already_present
+    new_tree = BinarySearchTree.new
+    new_tree.insert(82, "Dark Night")
+    new_tree.load('movies.txt')
+    assert_equal "Dark Night", new_tree.search(82, new_tree.root).title
+    refute_equal "The Saint", new_tree.search(82, new_tree.root).title
+  end 
 end
