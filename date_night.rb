@@ -105,6 +105,7 @@ class BinarySearchTree
     end
     @sorted
   end
+  
   def load(file)
     loaded = 0
     movies_list = File.open(file, "r")

@@ -118,7 +118,7 @@ class BinarySearchTreeTest < Minitest::Test
     new_tree.insert(50, "Italian Job")
     assert_equal [{"Italian Job"=>50}, {"Batman Begins"=>60}, {"Dark Night"=>80}, {"Lion King"=>90}], new_tree.sort
   end
-  def test_load_method_inserts_movies_from_text_file
+  def test_load_inserts_movies_from_text_file
     new_tree = BinarySearchTree.new
     new_tree.load('movies.txt')
     assert_equal "The Saint", new_tree.search(82, new_tree.root).title
@@ -135,5 +135,14 @@ class BinarySearchTreeTest < Minitest::Test
     new_tree.load('movies.txt')
     assert_equal "Dark Night", new_tree.search(82, new_tree.root).title
     refute_equal "The Saint", new_tree.search(82, new_tree.root).title
+  end 
+  def test_health_returns_expected_values
+    new_tree = BinarySearchTree.new
+    new_tree.insert(80, "Dark Night")
+    new_tree.insert(60, "Batman Begins")
+    new_tree.insert(90, "Lion King")
+    new_tree.insert(50, "Italian Job")
+    assert_equal [[80, 3, 100]], new_tree.health(0)
+    assert_equal [[60, 1, 25], [90, 0, 0]], new_tree.health(1)
   end 
 end
